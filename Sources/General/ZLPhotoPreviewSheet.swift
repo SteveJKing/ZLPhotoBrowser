@@ -669,12 +669,15 @@ class ZLPhotoPreviewSheet: UIView {
                 
                 if let image {
                     let isEdited = m.editImage != nil && !config.saveNewImageAfterEdit
+                    // MARK: - CUSTOM_PATCH
                     let model = ZLResultModel(
                         asset: asset ?? m.asset,
                         image: image,
                         isEdited: isEdited,
                         editModel: isEdited ? m.editImageModel : nil,
-                        index: i
+                        index: i,
+                        burn: m.burn,
+                        liveEnabled: m.liveEnabled
                     )
                     results[i] = model
                     zl_debugPrint("ZLPhotoBrowser: suc request \(i)")

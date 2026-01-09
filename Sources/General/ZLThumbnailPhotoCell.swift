@@ -27,7 +27,7 @@
 import UIKit
 import Photos
 
-class ZLThumbnailPhotoCell: UICollectionViewCell {
+open class ZLThumbnailPhotoCell: UICollectionViewCell {
     private let selectBtnWH: CGFloat = 24
     
     private lazy var containerView = UIView()
@@ -36,11 +36,11 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     
     private lazy var videoTag = UIImageView(image: .zl.getImage("zl_video"))
     
-    private lazy var livePhotoTag = UIImageView(image: .zl.getImage("zl_livePhoto"))
+    open private(set) lazy var livePhotoTag = UIImageView(image: .zl.getImage("zl_livePhoto"))
     
     private lazy var editImageTag = UIImageView(image: .zl.getImage("zl_editImage_tag"))
     
-    private lazy var descLabel: UILabel = {
+    open private(set) lazy var descLabel: UILabel = {
         let label = UILabel()
         label.font = .zl.font(ofSize: 13)
         label.textAlignment = .right
@@ -67,7 +67,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         return view
     }()
     
-    lazy var btnSelect: ZLEnlargeButton = {
+    open lazy var btnSelect: ZLEnlargeButton = {
         let btn = ZLEnlargeButton(type: .custom)
         btn.setBackgroundImage(.zl.getImage("zl_btn_unselected"), for: .normal)
         btn.setBackgroundImage(.zl.getImage("zl_btn_selected"), for: .selected)
@@ -109,7 +109,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     
     var selectedBlock: ((@escaping (Bool) -> Void) -> Void)?
     
-    var model: ZLPhotoModel! {
+    open var model: ZLPhotoModel! {
         didSet {
             configureCell()
         }
@@ -131,11 +131,11 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     }
     
     @available(*, unavailable)
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
+    open func setupUI() {
         contentView.addSubview(imageView)
         contentView.addSubview(coverView)
         contentView.addSubview(containerView)
@@ -153,7 +153,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         }
     }
     
-    override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         imageView.frame = bounds
@@ -191,6 +191,9 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
                 self?.progressView.isHidden = true
                 self?.cancelFetchBigImage()
             }
+            
+            // MARK: - CUSTOM_PATCH
+            self?.setupCustomOverlay()
         })
     }
     
@@ -260,6 +263,14 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         } else {
             fetchSmallImage()
         }
+    
+        // MARK: - CUSTOM_PATCH
+        setupCustomOverlay()
+    }
+    
+    // MARK: - CUSTOM_PATCH
+    open func setupCustomOverlay() {
+        // default empty
     }
     
     private func fetchSmallImage() {

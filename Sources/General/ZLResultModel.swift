@@ -41,12 +41,18 @@ public class ZLResultModel: NSObject {
     /// The order in which the user selects the models in the album. This index is not necessarily equal to the order of the model's index in the array, as some PHAssets requests may fail.
     @objc public let index: Int
     
-    @objc public init(asset: PHAsset, image: UIImage, isEdited: Bool, editModel: ZLEditImageModel? = nil, index: Int) {
+    // MARK: - CUSTOM_PATCH
+    @objc public let burn: Bool
+    @objc public let liveEnabled: Bool
+    
+    @objc public init(asset: PHAsset, image: UIImage, isEdited: Bool, editModel: ZLEditImageModel? = nil, index: Int, burn: Bool, liveEnabled: Bool) {
         self.asset = asset
         self.image = image
         self.isEdited = isEdited
         self.editModel = editModel
         self.index = index
+        self.burn = burn
+        self.liveEnabled = burn
         super.init()
     }
 }

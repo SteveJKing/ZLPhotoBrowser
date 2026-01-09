@@ -190,7 +190,9 @@ class ZLThumbnailViewController: UIViewController {
             view.contentInsetAdjustmentBehavior = .always
         }
         ZLCameraCell.zl.register(view)
-        ZLThumbnailPhotoCell.zl.register(view)
+        // MARK: - CUSTOM_PATCH
+//        ZLThumbnailPhotoCell.zl.register(view)
+        view.register(ZLPhotoConfiguration.default().thumbnailCellClass, forCellWithReuseIdentifier: ZLThumbnailPhotoCell.zl.identifier)
         ZLAddPhotoCell.zl.register(view)
         
         return view

@@ -130,6 +130,10 @@ public class ZLPhotoModel: NSObject {
             return .unknown
         }
     }
+    
+    // MARK: - CUSTOM_PATCH
+    public var burn: Bool = false
+    public var liveEnabled: Bool = true
 }
 
 public extension ZLPhotoModel {

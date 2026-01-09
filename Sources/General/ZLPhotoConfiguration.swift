@@ -269,6 +269,13 @@ public class ZLPhotoConfiguration: NSObject {
     /// The second parameter is the current selected models.
     /// The third parameter is the block that needs to be called after the user completes the operation.
     public var operateBeforeDoneAction: ((_ currVC: UIViewController, _ selModels: [ZLPhotoModel], _ continueBlock: @escaping (_ shouldContinue: Bool) -> Void) -> Void)?
+    
+    // MARK: - CUSTOM_PATCH
+    public var thumbnailCellClass: ZLThumbnailPhotoCell.Type = ZLThumbnailPhotoCell.self
+    public var allowBurn: Bool = false
+    public var photoPreviewViewControllerOnSetupUI: ((_ view: UIView, _ bottomView: UIView) -> Void)?
+    public var photoPreviewViewControllerOnResetSubViewStatus: ((ZLPhotoModel) -> Void)?
+    public var photoPreviewViewControllerOnTapPreviewCell: ((_ model: ZLPhotoModel, _ bottomView: UIView) -> Void)?
 }
 
 extension ZLPhotoConfiguration {

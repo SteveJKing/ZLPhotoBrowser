@@ -402,6 +402,9 @@ class ZLPhotoPreviewController: UIViewController {
         bottomView.addSubview(doneBtn)
         
         view.bringSubviewToFront(navView)
+        
+        // MARK: - CUSTOM_PATCH
+        ZLPhotoConfiguration.default().photoPreviewViewControllerOnSetupUI?(view, bottomView)
     }
     
     private func resetSubviewStatusWhenDraging(enable: Bool) {
@@ -551,6 +554,9 @@ class ZLPhotoPreviewController: UIViewController {
            ZLPhotoConfiguration.default().allowSelectImage {
             originalBtn.isHidden = !((currentModel.type == .image) || (currentModel.type == .livePhoto && !config.allowSelectLivePhoto) || (currentModel.type == .gif && !config.allowSelectGif))
         }
+        
+        // MARK: - CUSTOM_PATCH
+        ZLPhotoConfiguration.default().photoPreviewViewControllerOnResetSubViewStatus?(currentModel)
     }
     
     private func refreshOriginalLabelText() {
@@ -742,11 +748,14 @@ class ZLPhotoPreviewController: UIViewController {
             return
         }
         
-        downloadAssetIfNeed(model: currentModel, sender: self) { [weak nav] in
+        downloadAssetIfNeed(model: currentModel, sender: self) { [weak nav, weak self] in
             nav?.arrSelectedModels.append(currentModel)
             ZLPhotoConfiguration.default().didSelectAsset?(currentModel.asset)
             
             callbackBeforeDone()
+            
+            // MARK: - CUSTOM_PATCH
+            self?.selectBtn.isSelected = true
         }
     }
     
@@ -796,6 +805,9 @@ class ZLPhotoPreviewController: UIViewController {
         }
         navView.isHidden = hideNavView
         bottomView.isHidden = showBottomViewAndSelectBtn ? hideNavView : true
+        
+        // MARK: - CUSTOM_PATCH
+        ZLPhotoConfiguration.default().photoPreviewViewControllerOnTapPreviewCell?(arrDataSources[currentIndex], bottomView)
     }
     
     private func showEditImageVC(image: UIImage) {
