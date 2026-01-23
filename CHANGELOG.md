@@ -2,6 +2,13 @@
 
 -----
 
+## [4.7.4](https://github.com/longitachi/ZLPhotoBrowser/releases/tag/4.7.4) (2026-01-23)
+### Add:
+* Supports editing multiple videos.
+* Change the license from MIT to Apache-2.0.
+
+---
+
 ## [4.7.3](https://github.com/longitachi/ZLPhotoBrowser/releases/tag/4.7.3) (2025-10-17)
 ### Fix:
 * Fixed the issue where the eraser position was displayed incorrectly when editing pictures. [#1025](https://github.com/longitachi/ZLPhotoBrowser/issues/1025)
