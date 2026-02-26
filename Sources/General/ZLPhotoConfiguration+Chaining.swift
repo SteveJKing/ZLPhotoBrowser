@@ -131,6 +131,12 @@ public extension ZLPhotoConfiguration {
     }
     
     @discardableResult
+    func thumbVCAllowPanToDismiss(_ value: Bool) -> ZLPhotoConfiguration {
+        thumbVCAllowPanToDismiss = value
+        return self
+    }
+    
+    @discardableResult
     func allowSlideSelect(_ value: Bool) -> ZLPhotoConfiguration {
         allowSlideSelect = value
         return self

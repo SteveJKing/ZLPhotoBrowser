@@ -498,7 +498,8 @@ class ZLThumbnailViewController: UIViewController {
     }
     
     private func setupDismissInteractiveTransition() {
-        guard ZLPhotoUIConfiguration.default().style == .embedAlbumList else {
+        guard ZLPhotoUIConfiguration.default().style == .embedAlbumList,
+            ZLPhotoConfiguration.default().thumbVCAllowPanToDismiss else {
             return
         }
         
