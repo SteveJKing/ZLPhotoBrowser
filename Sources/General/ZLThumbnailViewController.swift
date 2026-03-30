@@ -700,6 +700,7 @@ class ZLThumbnailViewController: UIViewController {
         vc.backBlock = { [weak self] in
             guard let `self` = self, self.hiddenStatusBar else { return }
             self.hiddenStatusBar = false
+            self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
         }
         show(vc, sender: nil)
     }
@@ -1246,7 +1247,7 @@ class ZLThumbnailViewController: UIViewController {
         }
     }
     
-    /// 预判界面执行pop动画时，该界面需要执行的内容
+    /// 预览界面执行pop动画时，该界面需要执行的内容
     func endPopTransition() {
         collectionView.reloadItems(at: collectionView.indexPathsForVisibleItems)
         hiddenStatusBar = false
