@@ -41,12 +41,13 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
     /// Reference count of currently-active gesture recognizers in this set
     /// (pan/pinch/rotation). When it falls back to 0 the gesture sequence
     /// is considered finished and the active sticker is released.
-    private var activeGestureCount: Int = 0
+    private var activeGestureCount = 0
     
     /// Distance threshold (in container points) for rule #3.
     private let outOfStickerDistanceThreshold: CGFloat = 60
     
     // MARK: - Anchor (WeChat-style pivot tracking) state
+    
     //
     // While >=2 fingers are down, scaling/rotation are still computed around
     // the sticker's center (cheap), but we add a compensating translation so
@@ -56,7 +57,7 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
     // matches WeChat: if you keep one finger on the sticker and pinch with
     // the other, the on-sticker finger does not slide.
     
-    private var hasAnchor: Bool = false
+    private var hasAnchor = false
     /// Sticker center (container coords) at the moment the current anchor was captured.
     private var anchorCenter: CGPoint = .zero
     /// Vector from anchorCenter to the anchor finger's position at capture time.
@@ -65,7 +66,7 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
     private var gesRotationAtAnchorBegin: CGFloat = 0
     
     /// Number of touches seen on the last frame (used to detect finger swap).
-    private var lastTouchCount: Int = 0
+    private var lastTouchCount = 0
     /// Anchor finger's container-space position on the last frame; used for
     /// nearest-match touch tracking and finger-swap detection.
     private var lastAnchorPos: CGPoint = .zero
@@ -250,8 +251,10 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
         // Use the *maximum* numberOfTouches across our recognizers as the
         // ground truth for "how many fingers are down on this sequence",
         // since pan/pinch/rotation may briefly disagree by one frame.
-        let count = max(panGesture.numberOfTouches,
-                        max(pinchGesture.numberOfTouches, rotationGesture.numberOfTouches))
+        let count = max(
+            panGesture.numberOfTouches,
+            max(pinchGesture.numberOfTouches, rotationGesture.numberOfTouches)
+        )
         
         if count < 2 {
             // Fell back to 1 (or 0) finger: bake whatever translation the
@@ -329,8 +332,10 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
                 snapshotAnchor = Anow
             }
             anchorCenter = visibleCenter
-            anchorOffset = CGPoint(x: snapshotAnchor.x - anchorCenter.x,
-                                   y: snapshotAnchor.y - anchorCenter.y)
+            anchorOffset = CGPoint(
+                x: snapshotAnchor.x - anchorCenter.x,
+                y: snapshotAnchor.y - anchorCenter.y
+            )
             gesScaleAtAnchorBegin = sticker.gesScale
             gesRotationAtAnchorBegin = sticker.gesRotation
             hasAnchor = true
@@ -388,7 +393,7 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
             
             // Rule 2: both fingers inside the same sticker.
             for sticker in candidates where sticker.gesIsEnabled {
-                if stickerContains(sticker, containerPoint: p1) && stickerContains(sticker, containerPoint: p2) {
+                if stickerContains(sticker, containerPoint: p1), stickerContains(sticker, containerPoint: p2) {
                     return sticker
                 }
             }
@@ -407,8 +412,10 @@ final class ZLStickerGestureCoordinator: NSObject, UIGestureRecognizerDelegate {
                     let d = hypot(outside.x - center.x, outside.y - center.y)
                     let bounds = sticker.bounds
                     let halfExtent = max(bounds.width, bounds.height) * 0.5 * sticker.effectiveScale
-                    let threshold = max(halfExtent + outOfStickerDistanceThreshold,
-                                        outOfStickerDistanceThreshold)
+                    let threshold = max(
+                        halfExtent + outOfStickerDistanceThreshold,
+                        outOfStickerDistanceThreshold
+                    )
                     if d <= threshold {
                         return sticker
                     }
