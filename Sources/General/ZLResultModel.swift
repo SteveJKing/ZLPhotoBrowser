@@ -52,7 +52,7 @@ public class ZLResultModel: NSObject {
         self.editModel = editModel
         self.index = index
         self.burn = burn
-        self.liveEnabled = burn
+        self.liveEnabled = liveEnabled
         super.init()
     }
 }

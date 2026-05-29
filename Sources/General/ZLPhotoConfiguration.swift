@@ -273,6 +273,7 @@ public class ZLPhotoConfiguration: NSObject {
     // MARK: - CUSTOM_PATCH
     public var thumbnailCellClass: ZLThumbnailPhotoCell.Type = ZLThumbnailPhotoCell.self
     public var allowBurn: Bool = false
+    public var defaultBurn: Bool = false
     public var photoPreviewViewControllerOnSetupUI: ((_ view: UIView, _ bottomView: UIView) -> Void)?
     public var photoPreviewViewControllerOnResetSubViewStatus: ((ZLPhotoModel) -> Void)?
     public var photoPreviewViewControllerOnTapPreviewCell: ((_ model: ZLPhotoModel, _ bottomView: UIView) -> Void)?

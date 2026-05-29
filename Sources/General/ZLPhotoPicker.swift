@@ -134,16 +134,16 @@ public class ZLPhotoPicker: NSObject {
     
     /// - Warning: When calling this method in OC language, make sure that the `sender` is not nil
     @discardableResult
-    @objc public func showPhotoLibrary(sender: UIViewController) -> ZLImageNavController {
+    @objc public func showPhotoLibrary(sender: UIViewController, albumList: ZLAlbumListModel? = nil) -> ZLImageNavController {
         self.sender = sender
         
         let nav: ZLImageNavController
         if ZLPhotoUIConfiguration.default().style == .embedAlbumList {
-            let tvc = ZLThumbnailViewController(albumList: nil)
+            let tvc = ZLThumbnailViewController(albumList: albumList)
             nav = getImageNav(rootViewController: tvc)
         } else {
             nav = getImageNav(rootViewController: ZLAlbumListController())
-            let tvc = ZLThumbnailViewController(albumList: nil)
+            let tvc = ZLThumbnailViewController(albumList: albumList)
             nav.pushViewController(tvc, animated: true)
         }
         

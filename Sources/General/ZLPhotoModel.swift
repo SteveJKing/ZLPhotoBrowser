@@ -112,6 +112,7 @@ public class ZLPhotoModel: NSObject {
         if type == .video {
             duration = ZLCommonTools.formatVideoDuration(asset.duration)
         }
+        burn = ZLPhotoConfiguration.default().allowBurn && ZLPhotoConfiguration.default().defaultBurn
     }
     
     public func transformAssetType(for asset: PHAsset) -> ZLPhotoModel.MediaType {
