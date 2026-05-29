@@ -656,7 +656,7 @@ class ZLPhotoPreviewController: UIViewController {
         let hud = ZLProgressHUD(style: uiConfig.hudStyle)
         hud.timeoutBlock = { [weak self] in
             showAlertView(localLanguageTextValue(.timeout), self)
-            if let requestAssetID = requestAssetID {
+            if let requestAssetID {
                 PHImageManager.default().cancelImageRequest(requestAssetID)
             }
         }
@@ -665,7 +665,7 @@ class ZLPhotoPreviewController: UIViewController {
             hud.show(timeout: ZLPhotoUIConfiguration.default().timeout)
             requestAssetID = ZLPhotoManager.fetchImage(for: model.asset, size: model.previewSize) { [weak self] image, isDegraded in
                 if !isDegraded {
-                    if let image = image {
+                    if let image {
                         self?.showEditImageVC(image: image)
                     } else {
                         showAlertView(localLanguageTextValue(.imageLoadFailed), self)
@@ -678,7 +678,7 @@ class ZLPhotoPreviewController: UIViewController {
             // fetch avasset
             requestAssetID = ZLPhotoManager.fetchAVAsset(forVideo: model.asset) { [weak self] avAsset, _ in
                 hud.hide()
-                if let avAsset = avAsset {
+                if let avAsset {
                     self?.showEditVideoVC(model: model, avAsset: avAsset)
                 } else {
                     showAlertView(localLanguageTextValue(.timeout), self)
@@ -713,7 +713,7 @@ class ZLPhotoPreviewController: UIViewController {
             selPhotoPreview?.removeSelModel(model: currentModel)
             resetSubviewStatus()
             let index = uiConfig.sortAscending ? arrDataSources.lastIndex { $0 == currentModel } : arrDataSources.firstIndex { $0 == currentModel }
-            if let index = index {
+            if let index {
                 collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
             }
         }
