@@ -293,13 +293,14 @@ public class ZLPhotoPicker: NSObject {
                 sucCount += 1
                 
                 if let image {
-                    let isEdited = m.editImage != nil && !config.saveNewImageAfterEdit
+                    let isEdited = (m.editImage != nil || m.editVideoModel != nil) && !config.saveNewImageAfterEdit
                     // MARK: - CUSTOM_PATCH
                     let model = ZLResultModel(
                         asset: asset ?? m.asset,
                         image: image,
                         isEdited: isEdited,
                         editModel: isEdited ? m.editImageModel : nil,
+                        editVideoModel: m.editVideoModel,
                         index: i,
                         burn: m.burn,
                         liveEnabled: m.liveEnabled

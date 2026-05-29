@@ -116,17 +116,24 @@ class ZLFetchImageOperation: Operation, @unchecked Sendable {
         
         // 存在编辑的视频
         if let url = model.editVideoModel?.url {
-            ZLPhotoManager.saveVideoToAlbum(url: url) { [weak self] error, asset in
-                guard let asset else {
-                    self?.completion(nil, nil)
-                    self?.fetchFinish()
-                    return
+            if ZLPhotoConfiguration.default().saveNewImageAfterEdit {
+                ZLPhotoManager.saveVideoToAlbum(url: url) { [weak self] error, asset in
+                    guard let asset else {
+                        self?.completion(nil, nil)
+                        self?.fetchFinish()
+                        return
+                    }
+                    
+                    let newVideoModel = ZLPhotoModel(asset: asset)
+                    self?.fetchImage(for: newVideoModel) { image in
+                        self?.completion(image, asset)
+                        self?.fetchFinish()
+                    }
                 }
-                
-                let newVideoModel = ZLPhotoModel(asset: asset)
-                self?.fetchImage(for: newVideoModel) { image in
-                    self?.completion(image, asset)
-                    self?.fetchFinish()
+            } else {
+                ZLMainAsync {
+                    self.completion(self.model.editVideoModel?.coverImage, self.model.asset)
+                    self.fetchFinish()
                 }
             }
             

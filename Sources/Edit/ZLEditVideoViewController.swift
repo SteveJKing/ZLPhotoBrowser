@@ -29,11 +29,11 @@ import Photos
 import AVFoundation
 
 public class ZLEditVideoModel: NSObject {
-    let start: TimeInterval
-    let end: TimeInterval
-    let preDuration: TimeInterval
-    let url: URL
-    let coverImage: UIImage?
+    public let start: TimeInterval
+    public let end: TimeInterval
+    public let preDuration: TimeInterval
+    public let url: URL
+    public let coverImage: UIImage?
     
     init(start: TimeInterval, end: TimeInterval, preDuration: TimeInterval, url: URL, coverImage: UIImage?) {
         self.start = start

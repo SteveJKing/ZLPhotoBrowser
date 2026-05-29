@@ -44,8 +44,9 @@ public class ZLResultModel: NSObject {
     // MARK: - CUSTOM_PATCH
     @objc public let burn: Bool
     @objc public let liveEnabled: Bool
+    @objc public let editVideoModel: ZLEditVideoModel?
     
-    @objc public init(asset: PHAsset, image: UIImage, isEdited: Bool, editModel: ZLEditImageModel? = nil, index: Int, burn: Bool, liveEnabled: Bool) {
+    @objc public init(asset: PHAsset, image: UIImage, isEdited: Bool, editModel: ZLEditImageModel? = nil, editVideoModel: ZLEditVideoModel?, index: Int, burn: Bool, liveEnabled: Bool) {
         self.asset = asset
         self.image = image
         self.isEdited = isEdited
@@ -53,6 +54,7 @@ public class ZLResultModel: NSObject {
         self.index = index
         self.burn = burn
         self.liveEnabled = liveEnabled
+        self.editVideoModel = editVideoModel
         super.init()
     }
 }

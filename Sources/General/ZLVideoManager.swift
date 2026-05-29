@@ -240,6 +240,7 @@ public extension ZLVideoManager {
                 }
             }
         } else {
+            /*
             let completionHandler: () -> Void = { [weak exportSession] in
                 ZLMainAsync {
                     let suc = exportSession?.status == .completed
@@ -247,6 +248,18 @@ public extension ZLVideoManager {
                         zl_debugPrint("ZLPhotoBrowser: video export failed: \(exportSession?.error?.localizedDescription ?? "")")
                     }
                     complete(suc ? outputURL : nil, exportSession?.error)
+                }
+            }
+             */
+            
+            // MARK: - CUSTOM_PATCH
+            let completionHandler: () -> Void = {
+                ZLMainAsync {
+                    let suc = exportSession.status == .completed
+                    if exportSession.status == .failed {
+                        zl_debugPrint("ZLPhotoBrowser: video export failed: \(exportSession.error?.localizedDescription ?? "")")
+                    }
+                    complete(suc ? outputURL : nil, exportSession.error)
                 }
             }
             
