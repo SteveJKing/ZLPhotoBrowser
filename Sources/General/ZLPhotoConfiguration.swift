@@ -279,6 +279,7 @@ public class ZLPhotoConfiguration: NSObject {
     public var photoPreviewViewControllerOnSetupUI: ((_ view: UIView, _ bottomView: UIView) -> Void)?
     public var photoPreviewViewControllerOnResetSubViewStatus: ((ZLPhotoModel) -> Void)?
     public var photoPreviewViewControllerOnTapPreviewCell: ((_ model: ZLPhotoModel, _ bottomView: UIView) -> Void)?
+    public var editVideoViewControllerOnViewDidLayoutSubviews: ((_ controller: ZLEditVideoViewController, _ playerLayer: AVPlayerLayer) -> Void)?
 }
 
 extension ZLPhotoConfiguration {

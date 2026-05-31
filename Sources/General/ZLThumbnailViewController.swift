@@ -1384,6 +1384,11 @@ extension ZLThumbnailViewController: UICollectionViewDataSource, UICollectionVie
                         }
                         
                         self?.resetBottomToolBtnStatus()
+                        
+                        // MARK: - CUSTOM_PATCH
+                        if self?.shouldShowBottomToolBar() == false {
+                            self?.previewBtnClick()
+                        }
                     }
                 }
             } else {
@@ -1498,6 +1503,8 @@ extension ZLThumbnailViewController: UICollectionViewDataSource, UICollectionVie
             config.allowEditImage &&
             config.maxSelectCount == 1 &&
             model.type.rawValue < ZLPhotoModel.MediaType.video.rawValue
+        // MARK: - CUSTOM_PATCH
+        && (!config.allowSelectGif || model.type != .gif)
         
         let canEditVideo = config.editAfterSelectThumbnailImage &&
             config.allowEditVideo &&

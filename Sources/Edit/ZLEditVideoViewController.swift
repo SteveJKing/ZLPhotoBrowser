@@ -69,7 +69,9 @@ public class ZLEditVideoViewController: UIViewController {
     
     private lazy var doneBtn: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.setTitle(localLanguageTextValue(.editFinish), for: .normal)
+//        btn.setTitle(localLanguageTextValue(.editFinish), for: .normal)
+        // MARK: - CUSTOM_PATCH
+        btn.setTitle("下一步", for: .normal)
         btn.setTitleColor(.zl.bottomToolViewDoneBtnNormalTitleColor, for: .normal)
         btn.titleLabel?.font = ZLLayout.bottomToolTitleFont
         btn.addTarget(self, action: #selector(doneBtnClick), for: .touchUpInside)
@@ -345,6 +347,9 @@ public class ZLEditVideoViewController: UIViewController {
         frameImageBorderView.validRect = frameImageBorderView.convert(clipRect(), from: view)
         durationLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
         updateSubviewStatus()
+        
+        // MARK: - CUSTOM_PATCH
+        ZLPhotoConfiguration.default().editVideoViewControllerOnViewDidLayoutSubviews?(self, playerLayer)
     }
     
     private func setupUI() {
